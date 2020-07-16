@@ -22,12 +22,16 @@ function InputForm() {
   return (
     <>
       <Paper className="input-form-paper" elevation={3}>
-        <Typography variant="h4" color ="primary" align="center">Add User</Typography>
-        <Formik
+        <Typography variant="h4" color="primary" align="center">Add User</Typography>
+        {/* <Formik
           render={props => <Form {...props} />}
           initialValues={initialValues}
           validationSchema={validationSchema}
-        />
+        /> */}
+        <Formik initialValues={initialValues}
+          validationSchema={validationSchema}>
+          {props => <Form {...props}/>}
+        </Formik>
       </Paper>
 
     </>
