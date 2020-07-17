@@ -10,7 +10,6 @@ const apiDeleteUser = async(action) =>{
   const headers = {
     'Content-Type': 'application/json'
   }
-  //const jsonNewUser = await JSON.stringify(actionPayload.payload)
   const userID = action.payload;
   console.log('jsonNewUser', userID)
   const response = await Axios.delete(`http://77.120.241.80:8911/api/user/${userID}`, userID, {
@@ -23,7 +22,6 @@ const apiDeleteUser = async(action) =>{
 
  function* deleteUser(action) {
   try {
-    // const data = postData(newUser);
     const payload = yield call(apiDeleteUser, action)
     yield  put(deleteUserSuccess(payload))
   }catch(error){

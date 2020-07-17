@@ -4,16 +4,17 @@ import {
   PUT_USER_FAILURE
 } from '../types'
 
-export const putUserRequest = () => {
+export const putUserRequest = (editedUser) => {
   return{
     type: PUT_USER_REQUEST,
+    payload: editedUser
   }
 }
 
-export const putUserSuccess = (users) => {
+export const putUserSuccess = (user) => {
   return{
     type: PUT_USER_SUCCESS,
-    payload: users
+    payload: user
   }
 }
 

@@ -10,7 +10,7 @@ const postData = async(newUser) =>{
   const headers = {
     'Content-Type': 'application/json'
   }
-  const jsonNewUser = await JSON.stringify(newUser.payload)
+  const jsonNewUser = JSON.stringify(newUser.payload)
   console.log('jsonNewUser', jsonNewUser)
   const response = await Axios.post('http://77.120.241.80:8911/api/users', jsonNewUser, {
     headers
