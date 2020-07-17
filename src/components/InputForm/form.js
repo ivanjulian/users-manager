@@ -17,7 +17,6 @@ export const Form = (props) => {
     handleChange,
     isValid,
     setFieldTouched,
-    postUser
   } = props;
 
   const change = (name, e) => {
@@ -46,15 +45,15 @@ export const Form = (props) => {
       />
 
       <TextField
-        id="surename"
-        name="surename"
-        label="Surename"
+        id="surname"
+        name="surname"
+        label="Surname"
         fullWidth
         margin='dense'
         helperText={touched.surename ? errors.surename : ""}
         error={touched.surename && Boolean(errors.surename)}
         value={surename}
-        onChange={change.bind(null, "surename")}
+        onChange={change.bind(null, "surname")}
       />
 
       <TextField

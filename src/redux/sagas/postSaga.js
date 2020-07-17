@@ -6,12 +6,20 @@ import { postUserSuccess, postUserFailure } from '../actions/postActions'
 import Axios from 'axios'
 
 const postData = async() =>{
-  const params = {
+  const params = JSON.stringify({
+    id: 1431,
     name: 'John',
-    surename: 'Dou',
-    description: 'Nice man'
+    surname: 'Dou',
+    desc: 'man'
+  })
+
+  const headers = {
+    'Content-Type': 'application/json'
   }
-  const response = await Axios.post('https://jsonplaceholder.typicode.com/users', params) 
+
+  const response = await Axios.post('http://77.120.241.80:8911/api/users', params, {
+    headers
+  }) 
   console.log({params})
   console.log({response})
   return await response.data

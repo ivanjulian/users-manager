@@ -14,7 +14,9 @@ const UsersComponent = (props) => {
       {
         users.users.map(user => 
         <li key={user.id}>
-          {user.name}
+          Name: {user.name} <br/>
+          Surname: {user.surname} <br/>
+          Description: {user.desc} <br/>
         </li>)
       }
     </>
