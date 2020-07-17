@@ -4,9 +4,10 @@ import {
   DELETE_USER_FAILURE
 } from '../types'
 
-export const deleteUserRequest = () => {
+export const deleteUserRequest = (id) => {
   return{
     type: DELETE_USER_REQUEST,
+    payload: id
   }
 }
 

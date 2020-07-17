@@ -4,9 +4,10 @@ import {
   POST_USER_FAILURE
 } from '../types'
 
-export const postUserRequest = () => {
+export const postUserRequest = (newUser) => {
   return {
-    type: POST_USER_REQUEST
+    type: POST_USER_REQUEST,
+    payload: newUser
   }
 }
 

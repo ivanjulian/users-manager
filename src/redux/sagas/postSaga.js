@@ -5,30 +5,26 @@ import {
 import { postUserSuccess, postUserFailure } from '../actions/postActions'
 import Axios from 'axios'
 
-const postData = async() =>{
-  const params = JSON.stringify({
-    id: 1431,
-    name: 'John',
-    surname: 'Dou',
-    desc: 'man'
-  })
+const postData = async(newUser) =>{
 
   const headers = {
     'Content-Type': 'application/json'
   }
-
-  const response = await Axios.post('http://77.120.241.80:8911/api/users', params, {
+  const jsonNewUser = await JSON.stringify(newUser.payload)
+  console.log('jsonNewUser', jsonNewUser)
+  const response = await Axios.post('http://77.120.241.80:8911/api/users', jsonNewUser, {
     headers
   }) 
-  console.log({params})
+  
   console.log({response})
-  return await response.data
+  return response
 }
 
-function* postUser() {
+ function* postUser(newUser) {
   try {
-    const payload = yield call(postData)
-    yield put(postUserSuccess(payload))
+    // const data = postData(newUser);
+    const payload = yield call(postData, newUser)
+    yield  put(postUserSuccess(payload))
   }catch(error){
     yield put(postUserFailure(error))
   }
