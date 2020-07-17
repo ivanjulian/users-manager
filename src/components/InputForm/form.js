@@ -80,8 +80,8 @@ export const Form = (props) => {
         type="submit"
         fullWidth
         variant="contained"
-        color="primary"
         disabled={!isValid}
+        color="primary"
         margin='dense'
       >
         Submit

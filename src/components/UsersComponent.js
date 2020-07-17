@@ -6,6 +6,8 @@ import { deleteUserRequest } from '../redux/actions/deleteActions'
 import { connect } from 'react-redux';
 import { useState } from 'react';
 import { putUserRequest } from '../redux/actions/putActions';
+import { UserCard } from './UserCard'
+import { EditUserCard } from './EditUserCard';
 
 const UsersComponent = (props) => {
   const { users, loadUsers, deleteUser, putUser } = props;
@@ -27,7 +29,7 @@ const UsersComponent = (props) => {
 
   const editUser = (user) => {
     setEditMode({ ...editMode, isEdit: !editMode.isEdit, idUserToEdit: user.id })
-    setEditedUser({...editedUser, id: user.id })
+    setEditedUser({ ...editedUser, id: user.id })
   }
 
   const change = (e) => {
@@ -40,28 +42,13 @@ const UsersComponent = (props) => {
         users.users.map(user => {
           if (editMode.isEdit && user.id === editMode.idUserToEdit) {
             return (<li key={user.id}>
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                putUser(editedUser);
-                setEditMode({isEdit: false, idUserToEdit: null})
-                console.log(editedUser)
-
-              }} >
-                Edit Name: <input name="name" onChange={e => change(e)} defaultValue={user.name} type="text" />  <br />
-                Edit Surname:<input name="surname" onChange={e => change(e)} defaultValue={user.surname} type="text" />  <br />
-                Edit Description:<input name="desc" onChange={e => change(e)} defaultValue={user.desc} type="text" /> <br />
-                <button type="submit">Save</button>
-                <button onClick={() => editUser(user)}>Cancel</button>
-              </form>
+              <EditUserCard putUser={putUser} editUser={editUser} user={user}  />
             </li>)
           } else {
-            return (<li key={user.id}>
-              Name: {user.name} <br />
-          Surname: {user.surname} <br />
-          Description: {user.desc} <br />
-              <button onClick={() => deleteUser(user.id)}>Delete</button>
-              <button onClick={() => editUser(user)}>Edit</button>
-            </li>)
+            return (
+              <li key={user.id}>
+                <UserCard deleteUser={deleteUser} editUser={editUser} user={user} />
+              </li>)
           }
         })
       }
@@ -85,3 +72,19 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersComponent)
+
+
+
+// <form onSubmit={(e) => {
+//   e.preventDefault();
+//   putUser(editedUser);
+//   setEditMode({ isEdit: false, idUserToEdit: null })
+//   console.log(editedUser)
+
+// }} >
+//   Edit Name: <input name="name" onChange={e => change(e)} defaultValue={user.name} type="text" />  <br />
+//   Edit Surname:<input name="surname" onChange={e => change(e)} defaultValue={user.surname} type="text" />  <br />
+//   Edit Description:<input name="desc" onChange={e => change(e)} defaultValue={user.desc} type="text" /> <br />
+//   <button type="submit">Save</button>
+//   <button onClick={() => editUser(user)}>Cancel</button>
+// </form>
