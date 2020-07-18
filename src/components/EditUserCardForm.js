@@ -1,16 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { useState } from 'react';
-import { useDispatch } from 'react-redux'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import './EditUserCard.css'
 
 export const EditUserCardForm = (props) => {
-  //const dispatch = useDispatch()
   const {
-    //values: { name, surename, desc },
     errors,
     touched,
     handleChange,
@@ -18,14 +14,8 @@ export const EditUserCardForm = (props) => {
     setFieldTouched,
     putUser,
     editUser,
-    user,
-    loadUsers
+    user
   } = props;
-
-  // const [editMode, setEditMode] = useState({
-  //   isEdit: false,
-  //   idUserToEdit: null
-  // })
 
   const [formState, setFormState] = useState({
     id: user.id,
@@ -42,28 +32,16 @@ export const EditUserCardForm = (props) => {
     console.log(formState);
   };
 
-  const handleSubmit = async() => {
+  const handleSubmit = () => {
     editUser(user);
-    await putUser(formState);
-   // loadUsers();
+    putUser(formState);
   }
   return (
-    <form onSubmit={async (event) => {
+    <form onSubmit={(event) => {
       event.preventDefault();
-      await handleSubmit()
-      // // alert('submitted')
-      // // console.log(formState)
-      // e.preventDefault();
-      // putUser(formState);
-      // editUser(user);
-      // //setEditMode({ isEdit: false, idUserToEdit: null }) 
-      // console.log(formState)
-      // //await dispatch(postUserRequest(formState))
-      // // await dispatch(getUsersRequest())
+      handleSubmit()
     }}>
       <CardContent>
-
-
         <TextField
           id="name"
           name="name"
@@ -71,10 +49,9 @@ export const EditUserCardForm = (props) => {
           fullWidth
           margin='dense'
           variant="outlined"
-          //size="small"
+          size="small"
           helperText={touched.name ? errors.name : ""}
           error={touched.name && Boolean(errors.name)}
-          //value={name}
           defaultValue={formState.name}
           onChange={change.bind(null, "name")}
         />
@@ -89,7 +66,6 @@ export const EditUserCardForm = (props) => {
           size="small"
           helperText={touched.surename ? errors.surename : ""}
           error={touched.surename && Boolean(errors.surename)}
-          //value={surename}
           defaultValue={formState.surname}
           onChange={change.bind(null, "surname")}
         />
@@ -106,7 +82,6 @@ export const EditUserCardForm = (props) => {
           margin='dense'
           helperText={touched.desc ? errors.desc : ""}
           error={touched.desc && Boolean(errors.desc)}
-          //value={desc}
           defaultValue={formState.desc}
           onChange={change.bind(null, "desc")}
         />
@@ -136,32 +111,3 @@ export const EditUserCardForm = (props) => {
     </form>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return{
-//     posts: state.posts
-//   }
-// }
-
-// const mapDispatchToProps = (dispath) => {
-//   return{
-//     postUser: () => dispath(postUserRequest())
-//   }
-// }
-
-//export default connect(mapStateToProps, mapDispatchToProps)(Form)
-
-
-// <form onSubmit={(e) => {
-//   e.preventDefault();
-//   putUser(editedUser);
-//   setEditMode({ isEdit: false, idUserToEdit: null })
-//   console.log(editedUser)
-
-// }} >
-//   Edit Name: <input name="name" onChange={e => change(e)} defaultValue={user.name} type="text" />  <br />
-//   Edit Surname:<input name="surname" onChange={e => change(e)} defaultValue={user.surname} type="text" />  <br />
-//   Edit Description:<input name="desc" onChange={e => change(e)} defaultValue={user.desc} type="text" /> <br />
-//   <button type="submit">Save</button>
-//   <button onClick={() => editUser(user)}>Cancel</button>
-// </form>

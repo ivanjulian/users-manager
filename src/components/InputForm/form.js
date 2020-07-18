@@ -1,16 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { useState } from 'react';
 import { postUserRequest } from '../../redux/actions/postActions'
-import { getUsersRequest } from '../../redux/actions/getActions'
 import { useDispatch } from 'react-redux'
 
 
 export const Form = (props) => {
   const dispatch = useDispatch()
   const {
-    //values: { name, surename, desc },
     errors,
     touched,
     handleChange,
@@ -24,22 +21,21 @@ export const Form = (props) => {
   }
   const [formState, setFormState] = useState(formStateInitialValues);
 
-  const change = (name, e) => {
-    e.persist();
-    handleChange(e);
+  const change = (name, event) => {
+    event.persist();
+    handleChange(event);
     setFieldTouched(name, true, false);
-    setFormState({...formState, [e.target.name]: e.target.value});
+    setFormState({...formState, [event.target.name]: event.target.value});
   };
 
   const handleSubmit = async() => {
     await dispatch(postUserRequest(formState));
-    //dispatch(getUsersRequest());
     setFormState(formStateInitialValues);
   }
   return (
-    <form onSubmit={async(e) => {
-      e.preventDefault();
-      await handleSubmit();
+    <form onSubmit={(event) => {
+      event.preventDefault();
+      handleSubmit();
     }}>
       <TextField
         id="name"
@@ -93,18 +89,3 @@ export const Form = (props) => {
     </form>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return{
-//     posts: state.posts
-//   }
-// }
-
-// const mapDispatchToProps = (dispath) => {
-//   return{
-//     postUser: () => dispath(postUserRequest())
-//   }
-// }
-
-//export default connect(mapStateToProps, mapDispatchToProps)(Form)
-

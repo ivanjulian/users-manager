@@ -1,11 +1,10 @@
-import React from 'react'
-import { Form } from './form'
+import React, {useState} from 'react'
+import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { useState } from 'react'
+import { Form } from './form'
 import './form.css'
-import Typography from '@material-ui/core/Typography';
 
 export const validationSchema = Yup.object({
   name: Yup.string('Enter your name').required('Name is required').max(15, 'Too much symbols, 15 allowed'),
@@ -24,19 +23,12 @@ function InputForm() {
     <>
       <Paper className="input-form-paper" elevation={3}>
         <Typography variant="h4" color="primary" align="center">Add User</Typography>
-        {/* <Formik
-          render={props => <Form {...props} />}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-        /> */}
         <Formik initialValues={initialValues}
           validationSchema={validationSchema}>
           {props => <Form {...props}/>}
         </Formik>
       </Paper>
-
     </>
-
   )
 }
 

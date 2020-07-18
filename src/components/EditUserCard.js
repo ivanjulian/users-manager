@@ -1,9 +1,10 @@
-import React from 'react'
-import { Card, Typography } from '@material-ui/core'
+import React, {useState} from 'react'
 import { Formik } from 'formik'
-import { useState } from 'react'
+import { Card, Typography } from '@material-ui/core'
+
 import {validationSchema} from './InputForm'
 import {EditUserCardForm} from './EditUserCardForm'
+
 export function EditUserCard(props) {
   const {putUser, editUser, user, loadUsers} = props;
   const [initialValues, setInitialValues] = useState({

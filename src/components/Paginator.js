@@ -1,18 +1,11 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { getUsersRequest } from '../redux/actions/getActions'
-import { deleteUserRequest } from '../redux/actions/deleteActions'
+import React, {useEffect, useState} from 'react'
+import { List, ListItem } from '@material-ui/core';
 
-import { connect } from 'react-redux';
-import { useState } from 'react';
-import { putUserRequest } from '../redux/actions/putActions';
 import { UserCard } from './UserCard'
 import { EditUserCard } from './EditUserCard';
-import { List, ListItem } from '@material-ui/core';
 import { PaginationPages } from './PaginationPages'
 
 export const Paginator = (props) => {
-
   const {
     users,
     editMode,
@@ -22,7 +15,6 @@ export const Paginator = (props) => {
     deleteUser,
   } = props;
 
-  //const [allUsers, setAllUsers] = props;
 
   const [paginatorInfo, setPaginatorInfo] = useState({
     currentPage: 1,  //current opened page 
@@ -43,7 +35,6 @@ export const Paginator = (props) => {
     const indexOfLastUser = page * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const someUsers = users.users.slice(indexOfFirstUser, indexOfLastUser);
-    console.log({ someUsers })
     setPaginatorInfo(allState => {
       return {
         ...allState,
@@ -55,10 +46,8 @@ export const Paginator = (props) => {
 
   const calcPaginationInfo = () => {
     let pageNumbersArray = [];
-    //loadUsers();
-
-    console.log('users', users.users);
     const someUsers = users.users.slice(indexOfFirstUser, indexOfLastUser);
+
     for (let i = 1; i <= Math.ceil(users.users.length / usersPerPage); i++) {
       pageNumbersArray.push(i);
     }
@@ -72,15 +61,11 @@ export const Paginator = (props) => {
     })
 
     console.log(paginatorInfo);
-
   }
 
   useEffect(() => {
-    //setAllUsers(users.users)
     calcPaginationInfo();
   }, [users])
-
-  // console.log(paginatorInfo);
 
   return (
     <>

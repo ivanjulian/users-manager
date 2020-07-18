@@ -7,11 +7,10 @@ import Typography from '@material-ui/core/Typography'
 import './UserCard.css'
 
 export function UserCard(props) {
-  const { user, deleteUser, editUser, loadUsers } = props;
+  const { user, deleteUser, editUser } = props;
 
-  const handleDelete = async () => {
-    await deleteUser(user.id);
-    //loadUsers();
+  const handleDelete = () => {
+     deleteUser(user.id);
   }
 
   return (
@@ -54,11 +53,3 @@ export function UserCard(props) {
     </Card>
   )
 }
-
-// (<li key={user.id}>
-//   Name: {user.name} <br />
-// Surname: {user.surname} <br />
-// Description: {user.desc} <br />
-//   <button onClick={() => deleteUser(user.id)}>Delete</button>
-//   <button onClick={() => editUser(user)}>Edit</button>
-// </li>)
