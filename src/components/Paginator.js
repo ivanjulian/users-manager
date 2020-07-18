@@ -45,18 +45,19 @@ export const Paginator = (props) => {
   }
 
   const calcPaginationInfo = () => {
-    let pageNumbersArray = [];
+    //let pageNumbersArray = [];
+    let numberOfPages = Math.ceil(users.users.length / usersPerPage);
     const someUsers = users.users.slice(indexOfFirstUser, indexOfLastUser);
 
-    for (let i = 1; i <= Math.ceil(users.users.length / usersPerPage); i++) {
-      pageNumbersArray.push(i);
-    }
+    // for (let i = 1; i <= Math.ceil(users.users.length / usersPerPage); i++) {
+    //   pageNumbersArray.push(i);
+    // }
 
     setPaginatorInfo(allState => {
       return {
         ...allState,
         currentUsers: someUsers,
-        pageNumbers: pageNumbersArray
+        pageNumbers: numberOfPages
       }
     })
 
@@ -69,7 +70,7 @@ export const Paginator = (props) => {
 
   return (
     <>
-      <PaginationPages pageNumbers={pageNumbers} paginate={paginate} />
+      <PaginationPages currentPage={currentPage} pageNumbers={pageNumbers} paginate={paginate} />
       <List>
         {
           currentUsers.map(user => {

@@ -1,22 +1,15 @@
 import React from 'react';
-//import  './style.css';
+import Pagination from '@material-ui/lab/Pagination';
 
 export const PaginationPages = (props) => {
-  const {pageNumbers, paginate} = props;
+  const { pageNumbers, paginate, currentPage } = props;
+
+  const handleChange = (event, value) => {
+    paginate(value)
+  }
   return (
-    <nav>
-      select page:
-      <ul className="paginator-ul">
-        {
-          pageNumbers.map(pageNum =>
-            <li className="paginator-li" key={pageNum}>
-              <a href="#" onClick={()=>paginate(pageNum)}>
-                {pageNum}
-              </a>
-            </li>
-          )
-        }
-      </ul>
-    </nav>
+    <>
+      <Pagination count={pageNumbers} page={currentPage} onChange={handleChange} />
+    </>
   )
 }
