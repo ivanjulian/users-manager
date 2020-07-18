@@ -5,12 +5,12 @@ import { useState } from 'react'
 import {validationSchema} from './InputForm'
 import {EditUserCardForm} from './EditUserCardForm'
 export function EditUserCard(props) {
-  const {putUser, editUser, user} = props;
+  const {putUser, editUser, user, loadUsers} = props;
   const [initialValues, setInitialValues] = useState({
-    id: 0,
-    name: "",
-    surname: "",
-    desc: ""
+    id: user.id,
+    name: user.name,
+    surname: user.surname,
+    desc: user.desc
   })
   return (
     <>
@@ -18,7 +18,7 @@ export function EditUserCard(props) {
       <Typography color="primary" align="center">Edit User</Typography>
         <Formik initialValues={initialValues}
           validationSchema={validationSchema}>
-          {props => <EditUserCardForm putUser={putUser} editUser={editUser} user={user} {...props}/>}
+          {props => <EditUserCardForm loadUsers={loadUsers} putUser={putUser} editUser={editUser} user={user} {...props}/>}
         </Formik>
       </Card>
     </>

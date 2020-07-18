@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { putUserRequest } from '../redux/actions/putActions';
 import { UserCard } from './UserCard'
 import { EditUserCard } from './EditUserCard';
+import { List, ListItem } from '@material-ui/core';
 
 const UsersComponent = (props) => {
   const { users, loadUsers, deleteUser, putUser } = props;
@@ -32,26 +33,30 @@ const UsersComponent = (props) => {
     setEditedUser({ ...editedUser, id: user.id })
   }
 
-  const change = (e) => {
-    setEditedUser({ ...editedUser, [e.target.name]: e.target.value })
-    console.log(editedUser);
-  };
+  // const change = (e) => {
+  //   setEditedUser({ ...editedUser, [e.target.name]: e.target.value })
+  //   console.log(editedUser);
+  // };
   return (
     <>
-      {
-        users.users.map(user => {
-          if (editMode.isEdit && user.id === editMode.idUserToEdit) {
-            return (<li key={user.id}>
-              <EditUserCard putUser={putUser} editUser={editUser} user={user}  />
-            </li>)
-          } else {
-            return (
-              <li key={user.id}>
-                <UserCard deleteUser={deleteUser} editUser={editUser} user={user} />
-              </li>)
-          }
-        })
-      }
+      <List>
+        {
+          users.users.map(user => {
+            if (editMode.isEdit && user.id === editMode.idUserToEdit) {
+              return (
+                <ListItem className="user-li" key={user.id}>
+                  <EditUserCard putUser={putUser} loadUsers={loadUsers} editUser={editUser} user={user} />
+                </ListItem>)
+            } else {
+              return (
+                <ListItem className="user-li" key={user.id}>
+                  <UserCard deleteUser={deleteUser} loadUsers={loadUsers} editUser={editUser} user={user} />
+                </ListItem>)
+            }
+          })
+        }
+      </List>
+
     </>
   )
 }

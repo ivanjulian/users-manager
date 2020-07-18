@@ -7,8 +7,13 @@ import Typography from '@material-ui/core/Typography'
 import './UserCard.css'
 
 export function UserCard(props) {
-  const {user, deleteUser, editUser} = props;
- 
+  const { user, deleteUser, editUser, loadUsers } = props;
+
+  const handleDelete = async () => {
+    await deleteUser(user.id);
+    //loadUsers();
+  }
+
   return (
     <Card className="user-card">
       <CardContent className="user-card-content">
@@ -30,8 +35,10 @@ export function UserCard(props) {
           variant="contained"
           color="primary"
           margin='dense'
-          onClick={() => deleteUser(user.id)}
-          >
+          onClick={async () => {
+            await handleDelete()
+          }}
+        >
           Delete
         </Button>
         <Button
@@ -40,7 +47,7 @@ export function UserCard(props) {
           color="primary"
           margin='dense'
           onClick={() => editUser(user)}
-          >
+        >
           Edit
         </Button>
       </CardActions>

@@ -10,32 +10,36 @@ import { useDispatch } from 'react-redux'
 export const Form = (props) => {
   const dispatch = useDispatch()
   const {
-    values: { name, surename, desc },
+    //values: { name, surename, desc },
     errors,
     touched,
     handleChange,
     isValid,
     setFieldTouched,
   } = props;
-  const [formState, setFormState] = useState({
+  const formStateInitialValues = {
     name: '',
     surname: '',
     desc: ''
-  });
+  }
+  const [formState, setFormState] = useState(formStateInitialValues);
 
   const change = (name, e) => {
     e.persist();
     handleChange(e);
     setFieldTouched(name, true, false);
-    setFormState({...formState, [e.target.name]: e.target.value})
+    setFormState({...formState, [e.target.name]: e.target.value});
   };
+
+  const handleSubmit = async() => {
+    await dispatch(postUserRequest(formState));
+    dispatch(getUsersRequest());
+    setFormState(formStateInitialValues);
+  }
   return (
     <form onSubmit={async(e) => {
-      e.preventDefault()
-      alert('submitted')
-      console.log(formState)
-      await dispatch(postUserRequest(formState))
-     // await dispatch(getUsersRequest())
+      e.preventDefault();
+      await handleSubmit();
     }}>
       <TextField
         id="name"
@@ -45,7 +49,7 @@ export const Form = (props) => {
         margin='dense'
         helperText={touched.name ? errors.name : ""}
         error={touched.name && Boolean(errors.name)}
-        value={name}
+        value={formState.name}
         onChange={change.bind(null, "name")}
       />
 
@@ -57,7 +61,7 @@ export const Form = (props) => {
         margin='dense'
         helperText={touched.surename ? errors.surename : ""}
         error={touched.surename && Boolean(errors.surename)}
-        value={surename}
+        value={formState.surname}
         onChange={change.bind(null, "surname")}
       />
 
@@ -72,7 +76,7 @@ export const Form = (props) => {
         margin='dense'
         helperText={touched.desc ? errors.desc : ""}
         error={touched.desc && Boolean(errors.desc)}
-        value={desc}
+        value={formState.desc}
         onChange={change.bind(null, "desc")}
       />
 

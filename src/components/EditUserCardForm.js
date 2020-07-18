@@ -5,11 +5,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
+import './EditUserCard.css'
 
 export const EditUserCardForm = (props) => {
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
   const {
-    values: { name, surename, desc },
+    //values: { name, surename, desc },
     errors,
     touched,
     handleChange,
@@ -17,14 +18,14 @@ export const EditUserCardForm = (props) => {
     setFieldTouched,
     putUser,
     editUser,
-    user
-
+    user,
+    loadUsers
   } = props;
 
-  const [editMode, setEditMode] = useState({
-    isEdit: false,
-    idUserToEdit: null
-  })
+  // const [editMode, setEditMode] = useState({
+  //   isEdit: false,
+  //   idUserToEdit: null
+  // })
 
   const [formState, setFormState] = useState({
     id: user.id,
@@ -33,24 +34,32 @@ export const EditUserCardForm = (props) => {
     desc: user.desc
   });
 
-  const change = (name, e) => {
-    e.persist();
-    handleChange(e);
+  const change = (name, event) => {
+    event.persist();
+    handleChange(event);
     setFieldTouched(name, true, false);
-    setFormState({ ...formState, [e.target.name]: e.target.value })
+    setFormState({ ...formState, [event.target.name]: event.target.value })
+    console.log(formState);
   };
-  return (
-    <form onSubmit={async (e) => {
 
-      // alert('submitted')
+  const handleSubmit = async() => {
+    editUser(user);
+    await putUser(formState);
+    //loadUsers();
+  }
+  return (
+    <form onSubmit={async (event) => {
+      event.preventDefault();
+      await handleSubmit()
+      // // alert('submitted')
+      // // console.log(formState)
+      // e.preventDefault();
+      // putUser(formState);
+      // editUser(user);
+      // //setEditMode({ isEdit: false, idUserToEdit: null }) 
       // console.log(formState)
-      e.preventDefault();
-      putUser(formState);
-      editUser(user);
-      //setEditMode({ isEdit: false, idUserToEdit: null }) 
-      console.log(formState)
-      //await dispatch(postUserRequest(formState))
-      // await dispatch(getUsersRequest())
+      // //await dispatch(postUserRequest(formState))
+      // // await dispatch(getUsersRequest())
     }}>
       <CardContent>
 
@@ -102,7 +111,7 @@ export const EditUserCardForm = (props) => {
           onChange={change.bind(null, "desc")}
         />
       </CardContent>
-      <CardActions>
+      <CardActions className="edit-card-actions">
         <Button
           type="submit"
           disabled={!isValid}
