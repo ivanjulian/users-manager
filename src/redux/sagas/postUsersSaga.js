@@ -1,9 +1,10 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
+import Axios from 'axios'
+
 import { POST_USER_REQUEST } from '../types'
 import { postUserSuccess, postUserFailure } from '../actions/postActions'
-import Axios from 'axios'
-import { fetchData } from './getSaga'
 import { getUsersSuccess, getUsersFailure } from '../actions/getActions'
+import { fetchData } from './getUsersSaga'
 
 const postData = async (newUser) => {
 
@@ -11,12 +12,10 @@ const postData = async (newUser) => {
     'Content-Type': 'application/json'
   }
   const jsonNewUser = JSON.stringify(newUser.payload)
-  //console.log('jsonNewUser', jsonNewUser)
   const response = await Axios.post('http://77.120.241.80:8911/api/users', jsonNewUser, {
     headers
   })
 
-  //console.log({ response })
   return response
 }
 

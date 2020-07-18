@@ -1,10 +1,10 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
+import Axios from 'axios'
+
 import { DELETE_USER_REQUEST, } from '../types'
 import { deleteUserSuccess, deleteUserFailure } from '../actions/deleteActions'
-import Axios from 'axios'
-import { fetchData } from './getSaga'
 import { getUsersSuccess, getUsersFailure } from '../actions/getActions'
-
+import { fetchData } from './getUsersSaga'
 
 const apiDeleteUser = async (action) => {
 
@@ -12,12 +12,10 @@ const apiDeleteUser = async (action) => {
     'Content-Type': 'application/json'
   }
   const userID = action.payload;
-  //console.log('jsonNewUser', userID)
   const response = await Axios.delete(`http://77.120.241.80:8911/api/user/${userID}`, userID, {
     headers
   })
 
-  //console.log({ response })
   return response
 }
 
