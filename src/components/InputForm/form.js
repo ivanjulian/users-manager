@@ -33,7 +33,7 @@ export const Form = (props) => {
 
   const handleSubmit = async() => {
     await dispatch(postUserRequest(formState));
-    dispatch(getUsersRequest());
+    //dispatch(getUsersRequest());
     setFormState(formStateInitialValues);
   }
   return (

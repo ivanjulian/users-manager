@@ -2,6 +2,9 @@ import { takeEvery, put, call } from 'redux-saga/effects'
 import { DELETE_USER_REQUEST, } from '../types'
 import { deleteUserSuccess, deleteUserFailure } from '../actions/deleteActions'
 import Axios from 'axios'
+import { fetchData } from './getSaga'
+import { getUsersSuccess, getUsersFailure } from '../actions/getActions'
+
 
 const apiDeleteUser = async (action) => {
 
@@ -22,8 +25,11 @@ function* deleteUser(action) {
   try {
     const payload = yield call(apiDeleteUser, action)
     yield put(deleteUserSuccess(payload))
+    const update = yield call(fetchData) // updating users after deleting user
+    yield put(getUsersSuccess(update))   
   } catch (error) {
     yield put(deleteUserFailure(error))
+    yield put(getUsersFailure(error))
   }
 
 }
