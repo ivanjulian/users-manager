@@ -1,0 +1,12 @@
+.user-card{
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+.user-card-content{
+  width: 200px;
+}
+
+.user-card-actions{
+  width: 200px;
+}
