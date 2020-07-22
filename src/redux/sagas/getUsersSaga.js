@@ -1,24 +1,23 @@
-import { takeEvery, put, call } from 'redux-saga/effects'
-import Axios from 'axios'
+import { takeEvery, put, call } from 'redux-saga/effects';
+import { tooledAxios as axios } from '../axiosConfig';
 
-import { GET_USERS_REQUEST } from '../types'
-import { getUsersSuccess, getUsersFailure } from '../actions/getActions'
+import { GET_USERS_REQUEST } from '../types';
+import { getUsersSuccess, getUsersFailure } from '../actions/getActions';
 
 export const fetchData = async () => {
-  const response = await Axios.get('http://77.120.241.80:8911/api/users')
-  return await response.data
-}
+  const response = await axios.get('/users');
+  return await response.data;
+};
 
 function* getUsers() {
   try {
-    const payload = yield call(fetchData)
-    yield put(getUsersSuccess(payload))
+    const payload = yield call(fetchData);
+    yield put(getUsersSuccess(payload));
   } catch (error) {
-    yield put(getUsersFailure(error))
+    yield put(getUsersFailure(error));
   }
-
 }
 
 export function* watchGetUsers() {
-  yield takeEvery(GET_USERS_REQUEST, getUsers)
+  yield takeEvery(GET_USERS_REQUEST, getUsers);
 }
