@@ -17,11 +17,11 @@ function* putUser(action) {
   try {
     const payload = yield call(apiPutUser, action);
     yield put(putUserSuccess(payload));
-    // const update = yield call(fetchData); // updating users after put user
-    // yield put(getUsersSuccess(update));
+    const update = yield call(fetchData); // updating users after put user
+    yield put(getUsersSuccess(update));
   } catch (error) {
     yield put(putUserFailure(error));
-    // yield put(getUsersFailure(error));
+    yield put(getUsersFailure(error));
   }
 }
 

@@ -17,11 +17,11 @@ function* postUser(newUser) {
   try {
     const payload = yield call(postData, newUser);
     yield put(postUserSuccess(payload));
-    // const update = yield call(fetchData); // updating users after post user
-    // yield put(getUsersSuccess(update));
+    const update = yield call(fetchData); // updating users after post user
+    yield put(getUsersSuccess(update));
   } catch (error) {
     yield put(postUserFailure(error));
-    // yield put(getUsersFailure(error));
+    yield put(getUsersFailure(error));
   }
 }
 
