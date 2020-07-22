@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { store } from './store';
+import { getUsersRequest } from './actions/getActions';
 
 export const tooledAxios = axios.create({
   baseURL: 'http://77.120.241.80:8911/api',
@@ -21,8 +23,13 @@ tooledAxios.interceptors.request.use(
 tooledAxios.interceptors.response.use(
   (config) => {
     if (config.config.method === 'put' || 'post' || 'delete') {
-      console.log(config.method);
+      //
+      const { dispatch } = store;
+      //dispatch(getUsersRequest());
     }
+    // if (config.config.method === 'put' || 'post' || 'delete') {
+    //   store.dispatch(getUsersRequest());
+    // }
     return config;
   },
   (error) => {
