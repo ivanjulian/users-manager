@@ -1,17 +1,19 @@
-import React from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardActions from '@material-ui/core/CardActions'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import './UserCard.css'
+import React, { useMemo, useCallback } from 'react';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import './UserCard.css';
 
-export function UserCard(props) {
-  const { user, deleteUser, editUser } = props;
+function UserCard(props) {
+  const { user, deleteUser, editUser } = useMemo(() => props, [props]);
 
-  const handleDelete = () => {
-     deleteUser(user.id);
-  }
+  const handleDelete = useCallback(() => {
+    deleteUser(user.id);
+  }, [deleteUser]);
+
+  console.log('user card re-rended');
 
   return (
     <Card className="user-card">
@@ -33,10 +35,8 @@ export function UserCard(props) {
           size="small"
           variant="contained"
           color="primary"
-          margin='dense'
-          onClick={async () => {
-            await handleDelete()
-          }}
+          margin="dense"
+          onClick={handleDelete}
         >
           Delete
         </Button>
@@ -44,12 +44,14 @@ export function UserCard(props) {
           size="small"
           variant="contained"
           color="primary"
-          margin='dense'
+          margin="dense"
           onClick={() => editUser(user)}
         >
           Edit
         </Button>
       </CardActions>
     </Card>
-  )
+  );
 }
+
+export default React.memo(UserCard);

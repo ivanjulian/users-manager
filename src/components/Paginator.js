@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { List, ListItem } from '@material-ui/core';
 
-import { UserCard } from './UserCard';
+import UserCard from './UserCard';
 import { EditUserCard } from './EditUserCard';
 import { PaginationPages } from './PaginationPages';
 
